@@ -1,0 +1,1 @@
+CrisisComm is a natural language processing model for post-disaster aid acquisition. Please make sure you have referred to the requirements.txt file on this respository to download the respective components. Download the data folder too as it has all the context for the LLM to operate on.
