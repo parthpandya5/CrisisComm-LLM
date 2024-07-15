@@ -2,7 +2,7 @@
 import argparse
 import os
 import shutil
-from langchain.document_loaders.pdf import PyPDFDirectoryLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
 from embedding_function import get_embedding_function
@@ -30,7 +30,7 @@ def main():
 
 
 def load_documents():
-    document_loader = PyPDFDirectoryLoader(DATA_PATH)
+    document_loader = PyPDFLoader(DATA_PATH)
     return document_loader.load()
 
 
@@ -75,7 +75,7 @@ def add_to_chroma(chunks: list[Document]):
 
 def calculate_chunk_ids(chunks):
 
-    # This will create IDs like "data/monopoly.pdf:6:2"
+    # This will create IDs like "data/FEMA.pdf:144:1"
     # Page Source : Page Number : Chunk Index
 
     last_page_id = None
