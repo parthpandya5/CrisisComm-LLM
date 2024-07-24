@@ -3,4 +3,5 @@ langchain
 chromadb # Vector storage
 pytest
 boto3
+streamlit
 llama3 from Ollama
