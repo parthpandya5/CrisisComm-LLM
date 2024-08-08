@@ -2,7 +2,7 @@
 import argparse
 import os
 import shutil
-from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
 from embedding_function import get_embedding_function
@@ -21,7 +21,7 @@ def main():
     args = parser.parse_args()
     if args.reset:
         print("✨ Clearing Database")
-        clear_database()
+        clear_database() 
 
     # Create (or update) the data store.
     documents = load_documents()
@@ -30,7 +30,7 @@ def main():
 
 
 def load_documents():
-    document_loader = PyPDFLoader(DATA_PATH)
+    document_loader = PyPDFDirectoryLoader(DATA_PATH)
     return document_loader.load()
 
 
