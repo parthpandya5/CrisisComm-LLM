@@ -8,7 +8,7 @@ Prior to running the program, make sure Python, Virtual Studio Code (VSCode), an
     2a - To create the virtual environment, type in "python -m venv .venv" for Windows or "python3 -m venv .venv" for Mac. A folder called ".venv" should pop up under the folder "__pycache__" in the VSCode file explorer if you successfully created the virtual environment.
     2b - To activate the virtual environment, type in "./.venv/Scripts/Activate" into the terminal. If you successfully activated it, then a green "(./venv)" should appear to the left of the file path that is shown in the terminal. 
 
-3 - For our code to run successfully, we must install all the important python libraries. Run "pip install" (Windows) or "pip3 install" (Mac) on all the libraries listed in requirements.txt. For example, you would run "pip install pypdf langchain chromadb pytest boto3 streamlit" in the VSCode terminal if you are on Windows (use pip3 instead of pip on Mac). Downloading will take some time, so be patient.
+3 - For our code to run successfully, we must install all the important python libraries. Run "pip install" (Windows) or "pip3 install" (Mac) on all the libraries listed in requirements.txt. For example, you would run "pip install pypdf langchain chromadb pytest boto3 streamlit langchain-community" in the VSCode terminal if you are on Windows (use pip3 instead of pip on Mac). Downloading will take some time, so be patient.
 
 4 - Before running our code, we need to set up the LLM. This can be done by opening a terminal on your local machine, NOT in VSCode. So, this would be Powershell (on Windows) or Command Prompt (on Mac). Type in the following commands, which are the same across both Windows and Mac: 
     4a - "ollama pull llama3"
