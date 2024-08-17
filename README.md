@@ -31,3 +31,5 @@ Copy the command that it shows you back into the terminal. So, in this context, 
 **NOTE** Responses may take upwards of 30 seconds to a minute to generate, as the LLM is using local resources (like your computer's operating system, cpu, etc.) rather than an online server.
 
 Credits to the following YouTube Tutorials provided by IBM and pixiegami to provide a foundation for our project: (1) https://www.youtube.com/watch?v=XctooiH0moI and (2) https://youtu.be/2TJxpyO3ei4?si=wSAvS4ShQotpWoYO.
+
+We plan to deploy this program to a web domain in the near future, so stay tuned.
