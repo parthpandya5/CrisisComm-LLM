@@ -1,31 +1,79 @@
 import streamlit as st
-from app import*
+from app import *
+import firebase_admin
+from firebase_admin import credentials, auth, db
 
-#app title
+# Check if Firebase app is already initialized
+if not firebase_admin._apps:
+    cred = credentials.Certificate('crisiscomm-llm-firebase-adminsdk-yxi0m-c2f6e36c34.json')
+    firebase_admin.initialize_app(cred, {
+        'databaseURL': 'https://crisiscomm-llm-default-rtdb.firebaseio.com/'
+    })
+
+# Function to register user
+def register_user(email, password):
+    user = auth.create_user(email=email, password=password)
+    return user.uid
+
+# Function to login user
+def login_user(email, password):
+    user = auth.get_user_by_email(email)
+    return user.uid
+
+# Function to save conversation
+def save_conversation(user_id, conversation):
+    ref = db.reference(f'conversations/{user_id}')
+    ref.set({
+        'conversation': conversation
+    })
+
+# Function to get conversation
+def get_conversation(user_id):
+    ref = db.reference(f'conversations/{user_id}')
+    conversation = ref.get()
+    return conversation.get('conversation', []) if conversation else []
+
+# App title
 st.title("Ask CrisisComm")
 
+# Initial chatbot message
 st.chat_message('chatbot').markdown("Hi! I'm CrisisComm. I'm here to help with you any questions related to FEMA.\n")
 
-#setup a message variable to hold the old messages
-if 'messages' not in st.session_state:
-    st.session_state.messages = []
+# User authentication (simple form for demo purposes)
+email = st.text_input("Email")
+password = st.text_input("Password", type="password")
+if st.button("Register"):
+    user_id = register_user(email, password)
+    st.success("Registered successfully")
+if st.button("Login"):
+    user_id = login_user(email, password)
+    st.session_state.user_id = user_id
+    st.success("Logged in successfully")
 
-#displays all the previous messages
-for message in st.session_state.messages:
-    st.chat_message(message['role']).markdown(message['content'])
+if 'user_id' in st.session_state:
+    # Initialize messages
+    if 'messages' not in st.session_state:
+        st.session_state.messages = get_conversation(st.session_state.user_id)
 
-#build the prompt platform
-prompt = st.chat_input("Message")
+    # Display all the previous messages
+    for message in st.session_state.messages:
+        st.chat_message(message['role']).markdown(message['content'])
 
-if prompt:
-    #display the prompt
-    st.chat_message('user').markdown(prompt)
-    #stores user prompt
-    st.session_state.messages.append({'role':'user', 'content':prompt})
-    #send the prompt to the llm
-    response = app(prompt)
-    #show the response
-    st.chat_message('chatbot').markdown(response)
-    #store the response
-    st.session_state.messages.append(
-        {'role':'chatbot', 'content':response})
+    # Build the prompt platform
+    prompt = st.chat_input("Message")
+
+    if prompt:
+        # Display the prompt
+        st.chat_message('user').markdown(prompt)
+        # Store user prompt
+        st.session_state.messages.append({'role': 'user', 'content': prompt})
+        # Send the prompt to the llm
+        response = app(prompt)
+        # Show the response
+        st.chat_message('chatbot').markdown(response)
+        # Store the response
+        st.session_state.messages.append(
+            {'role': 'chatbot', 'content': response}
+        )
+        # Save conversation to Firebase
+        save_conversation(st.session_state.user_id, st.session_state.messages)
