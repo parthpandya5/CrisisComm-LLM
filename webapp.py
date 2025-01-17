@@ -5,7 +5,7 @@ from firebase_admin import credentials, auth, db
 
 # Check if Firebase app is already initialized
 if not firebase_admin._apps:
-    cred = credentials.Certificate('crisiscomm-llm-firebase-adminsdk-yxi0m-c2f6e36c34.json')
+    cred = credentials.Certificate('.gitignore')
     firebase_admin.initialize_app(cred, {
         'databaseURL': 'https://crisiscomm-llm-default-rtdb.firebaseio.com/'
     })
