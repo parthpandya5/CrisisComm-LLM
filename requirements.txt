@@ -7,3 +7,5 @@ streamlit
 ollama
 langchain_community
 firebase-admin
+pysqlite3-binary
+```[_{{{CITATION{{{_1{The sqlite3 version (3.34.1) on streamlit cloud is too old. Could you ...](https://discuss.streamlit.io/t/the-sqlite3-version-3-34-1-on-streamlit-cloud-is-too-old-could-you-upgrade-it/48019)
