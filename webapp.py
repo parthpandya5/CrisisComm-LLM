@@ -2,6 +2,9 @@ import streamlit as st
 from app import *
 import firebase_admin
 from firebase_admin import credentials, auth, db
+import pysqlite3
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 
 if not firebase_admin._apps:
